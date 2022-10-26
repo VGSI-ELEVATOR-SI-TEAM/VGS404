@@ -701,9 +701,9 @@ bssBANK1 100 1D1 BANK1 100 1
 bssBIGRAM 1D2 3C5 BIGRAM 1D2 1
 text33 20D0 20D2 CODE 20D0 0
 %locals
-dist/default/production\G-790B-GS.X.production.obj
+dist/default/debug\G-790B-GS.X.debug.obj
 C:\Program Files\Microchip\xc8\v2.36\pic\include\proc\pic18f45k80.h
-C:\Users\NGUYEN~1\AppData\Local\Temp\xcAse0s.as
+C:\Users\NGUYEN~1\AppData\Local\Temp\xcAs5lg.as
 15219 1B8A 0 CODE 0
 15221 1B8A 0 CODE 0
 15224 1B8A 0 CODE 0
@@ -1657,7 +1657,7 @@ C:\Program Files\Microchip\xc8\v2.36\pic\sources\c90\common\lwdiv.c
 146 2020 0 CODE 0
 147 2028 0 CODE 0
 150 202A 0 CODE 0
-C:\Users\NGUYEN~1\AppData\Local\Temp\xcAse0s.as
+C:\Users\NGUYEN~1\AppData\Local\Temp\xcAs5lg.as
 27891 18 0 CODE 0
 ../../src/Uart.c
 480 18 0 CODE 0
@@ -1784,7 +1784,7 @@ C:\Program Files\Microchip\xc8\v2.36\pic\sources\c90\common\lbmod.c
 16 204E 0 CODE 0
 17 2052 0 CODE 0
 18 2054 0 CODE 0
-C:\Users\NGUYEN~1\AppData\Local\Temp\xcAse0s.as
+C:\Users\NGUYEN~1\AppData\Local\Temp\xcAs5lg.as
 29099 8 0 CODE 0
 ../../src/Canbus.c
 69 8 0 CODE 0

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
-  <executable name="dist/default/production\G-790B-GS.X.production.hex">
+  <executable name="dist/default/debug\G-790B-GS.X.debug.hex">
     <memory name="program">
       <units>bytes</units>
       <length>32768</length>

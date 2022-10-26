@@ -31,18 +31,22 @@
 #pragma config CANMX = PORTB
 #pragma config SOSCSEL = DIG
 
+#define vref 30 /*Reference Voltage is 5V*/
+void ADC_Init();
+int ADC_Read(int);
+
 void Device_init(void){
-  IOCB 	= 0;		// pb¿Ú£¬µçÆ½±ä»¯ÖÐ¶Ï½ûÖ¹
-	WPUB 	= 0;		// pb¿Ú£¬ÈõÉÏÀ­¹¦ÄÜ
-	ODCON 	= 0;		// spi,uartµÈÂ©¼«¿ªÂ·¿ØÖÆ
-  HLVDCON	= 0;   		// ¸ßµÍÑ¹¼ì²â	
-	SLRCON	= 0;		// Ñ¹°Ú¿ØÖÆ¼Ä´æÆ÷
+  IOCB 	= 0;		// pbï¿½Ú£ï¿½ï¿½ï¿½Æ½ï¿½ä»¯ï¿½Ð¶Ï½ï¿½Ö¹
+	WPUB 	= 0;		// pbï¿½Ú£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	ODCON 	= 0;		// spi,uartï¿½ï¿½Â©ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½
+  HLVDCON	= 0;   		// ï¿½ßµï¿½Ñ¹ï¿½ï¿½ï¿½	
+	SLRCON	= 0;		// Ñ¹ï¿½Ú¿ï¿½ï¿½Æ¼Ä´ï¿½ï¿½ï¿½
   ANCON0 = 0x00;	// port A and E pins as digital I/O
 	ANCON1 = 0x00;
     
 	PORTA  = 0x00;
 	LATA   = 0x00;	
-	TRISA  = 0xFF;//RA0--RA3 SW1 ²¦Âë¿ª¹ØÊäÈë
+	TRISA  = 0xFF;//RA0--RA3 SW1 ï¿½ï¿½ï¿½ë¿ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		// RA0: SW2.4 input
 		// RA1: SW2.3 input
 		// RA2: SW2.2 input
@@ -75,11 +79,11 @@ void Device_init(void){
 	LATD  = 0x00;	
 	TRISD = 0xF0;
 		//RD0: LED-RUN			output
-		//RD1: ÓÒÉùµÀÊ¹ÄÜ		output
-		//RD2: ×óÉùµÀÊ¹ÄÜ		output
-		//RD3: ¸øÓïÒôÐ¾Æ¬¹©µç		output
+		//RD1: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½		output
+		//RD2: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½		output
+		//RD3: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¾Æ¬ï¿½ï¿½ï¿½ï¿½		output
 		//RD4-RD7: Not used input	
-	LATDbits.LATD1 = 1;		//×óÓÒÉùµÀÊä³ö½ûÖ¹
+	LATDbits.LATD1 = 1;		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¹
 	LATDbits.LATD2 = 1;
 	MUSIC_POWER_OUTPUT();
 
@@ -90,18 +94,18 @@ void Device_init(void){
 }
 
 /**********************************************************************************
- - ¹¦ÄÜÃèÊö£º ¶¨Ê±Æ÷0³õÊ¼»¯
- - Á¥ÊôÄ£¿é£º Íâ²¿
- - ²ÎÊýËµÃ÷£º ÎÞ
- - ·µ»ØËµÃ÷£º ÎÞ
- - ×¢£º	      
+ - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ê±ï¿½ï¿½0ï¿½ï¿½Ê¼ï¿½ï¿½
+ - ï¿½ï¿½ï¿½ï¿½Ä£ï¿½é£º ï¿½â²¿
+ - ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+ - ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+ - ×¢ï¿½ï¿½	      
 **********************************************************************************/
 void Timer0_init(void){	
-	INTCONbits.T0IF  = 0;		//Çå³ýTMR0ÖÐ¶Ï±êÖ¾
-	INTCONbits.T0IE  = 1;		//TMR0ÖÐ¶ÏÔÊÐíÎ»
-	INTCON2bits.T0IP = 0;		//ÉèÖÃTimer0ÖÐ¶ÏÎªµÍÓÅÏÈ¼¶
-	TMR0L = T0L_500ms;				//¶¨Ê±Æ÷³õÖµ
-	TMR0H = T0H_500ms;				//¶¨Ê±Æ÷³õÖµ
+	INTCONbits.T0IF  = 0;		//ï¿½ï¿½ï¿½TMR0ï¿½Ð¶Ï±ï¿½Ö¾
+	INTCONbits.T0IE  = 1;		//TMR0ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½Î»
+	INTCON2bits.T0IP = 0;		//ï¿½ï¿½ï¿½ï¿½Timer0ï¿½Ð¶ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½
+	TMR0L = T0L_500ms;				//ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Öµ
+	TMR0H = T0H_500ms;				//ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Öµ
 	T0CON = T0START_1TO32;
 }
 
@@ -128,6 +132,33 @@ void Load_DefaultPara(void){
 	p.special_enable = DISABLE;
 }
 
+void ADC_Init()
+{
+    ANCON1 = 0x08;
+
+    ADCON2bits.ADFM=1; // Result format 1= Right justified
+    ADCON2bits.ACQT=1; // Acquisition time 7 = 20TAD 2 = 4TAD 1=2TAD
+    ADCON2bits.ADCS=2; // Clock conversion bits 6= FOSC/64 2=FOSC/32
+    // ADCON1
+    ADCON1bits.VCFG0 =0; // Vref+ = AVdd
+    ADCON1bits.VCFG1 =0; // Vref+ = AVdd
+    ADCON1bits.VNCFG = 0; // Vref- = AVss
+    ADCON1bits.CHSN = 4; // Select ADC channel
+    ADCON0bits.ADON = 1; // Turn on ADC 
+    
+    //PIE1.ADIE = 1; //  Enables the A/D interrupt 
+}
+int ADC_Read(int channel)
+{
+    int digital;
+    ADCON0 =(ADCON0 & 0b10000011)|((channel<<2) & 0b01111100); /*channel 0 is selected i.e (CHS3CHS2CHS1CHS0=0000)
+    and ADC is disabled i.e ADON=0*/
+    ADCON0 |= ((1<<ADON)|(1<<GO)); /*Enable ADC and start conversion*/
+    while(ADCON0bits.GO_nDONE==1); /*wait for End of conversion i.e. Go/done'=0 conversion completed*/
+    digital = (ADRESH*256) | (ADRESL); /*Combine 8-bit LSB and 2-bit MSB*/
+    printf("ADC digital %d", digital);
+    return(digital);
+}
 
 /****************************************************************************************************/
 /* sET ALL USER VARIABLES																			*/
@@ -150,14 +181,18 @@ void Init_UserVar(void){
 /****************************************************************************************************/
 void main(void){	
 	BYTE baudrate = 0;
-	
+	int digital;
+    float voltage;
+    int volume;
+    int old_volume;
 	delay_ms(1000);
 	Device_init();	
 	
 #ifndef _DEBUG
-	WDTCON = 0x01;		//Ê¹ÄÜÈí¼þ¿´ÃÅ¹·
+	WDTCON = 0x01;		//Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¹ï¿½
 #endif
 
+	
 	INTCON = 0;
 	RCONbits.IPEN = 1;
 	ClrWdt();	
@@ -183,9 +218,31 @@ void main(void){
 	
 	ClrWdt();												/* reset watchdog timer					*/
 	music_back_timer = p.music_timer;						/* start music timer					*/
+
+	ADC_Init();
+    digital = ADC_Read(4);
+    voltage = digital*((float)vref/(float)4095); /*Convert digital value into analog voltage*/
+    volume = abs((int)voltage);
+	if (volume < 5) volume = 5;
+    old_volume = volume;
+    UART_SendCommand(CMD_VOLUMN_SETTING , FEED_BACK , volume); // my test
+
 	while(1) 
 		{		
 			ClrWdt();
+			digital = ADC_Read(4);
+            voltage = digital*((float)vref/(float)4095); /*Convert digital value into analog voltage*/
+            volume = abs((int)voltage);
+            if (volume % 2 == 0)
+            {
+                if (volume != old_volume)
+                {
+					if (volume < 5) volume = 5;
+                    UART_SendCommand(CMD_VOLUMN_SETTING , FEED_BACK , volume); // my test
+                    old_volume = volume;
+                    delay_ms(500);
+                }
+            }
 			if(bTime_Fg.time_100ms)
 				{
 					if(music_led_no_good == 0)

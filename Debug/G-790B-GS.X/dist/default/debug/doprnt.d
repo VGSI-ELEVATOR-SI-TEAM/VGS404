@@ -1,0 +1,1 @@
+ dist/default/debug/doprnt.d  dist/default/debug/doprnt.p1:  C:/Program\ Files/Microchip/xc8/v2.36/pic/sources/c90/common/doprnt.c ../../include/stdio.h ../../include/string.h

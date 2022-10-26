@@ -13,30 +13,30 @@ typedef unsigned char		BYTE;
 typedef signed long			SDWORD;
 typedef signed int			SWORD;
 typedef signed char			SBYTE;
+#define abs(x) ((x)>0?(x):-(x))
 
-
-#define	DOWNLOAD_TOTAL_FILE		3			//Ò»¹²3¸öÎÄ¼þ¼Ð£¬File1
-#define	MAX_FILE		260								//Ã¿¸öÎÄ¼þ¼Ð×î¶à240¸öÎÄ¼þ
-#define	MAX_IO			4									//Ò»¹²4¸ö¸É½ÚµãÊäÈë
+#define	DOWNLOAD_TOTAL_FILE		3			//Ò»ï¿½ï¿½3ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ð£ï¿½File1
+#define	MAX_FILE		260								//Ã¿ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½240ï¿½ï¿½ï¿½Ä¼ï¿½
+#define	MAX_IO			4									//Ò»ï¿½ï¿½4ï¿½ï¿½ï¿½É½Úµï¿½ï¿½ï¿½ï¿½ï¿½
 #define	MAX_ARROW			2							
-#define	MESSAGE_INDEX	200						//×´Ì¬ÐÅÏ¢ÎÄ¼þ¼ÐÃ¿ÖÖÓïÑÔÕ¼ÓÃ80¸öÎÄ¼þ
-#define	MESSAGE_FILE		3						//×´Ì¬ÐÅÏ¢ÎÄ¼þ¼ÐÃ¿ÖÖÓïÑÔÕ¼ÓÃ80¸öÎÄ¼þ
-#define	FLOOR_NON_STANDARD		221		//´Ó 221 ÎÄ¼þ¿ªÊ¼Îª·Ç±êÂ¥²ã
-#define	MESSAGE_NON_STANDARD		247		//´Ó 247 ÎÄ¼þ¿ªÊ¼Îª·Ç±ê×´Ì¬ÐÅÏ¢
+#define	MESSAGE_INDEX	200						//×´Ì¬ï¿½ï¿½Ï¢ï¿½Ä¼ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½ï¿½80ï¿½ï¿½ï¿½Ä¼ï¿½
+#define	MESSAGE_FILE		3						//×´Ì¬ï¿½ï¿½Ï¢ï¿½Ä¼ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½ï¿½80ï¿½ï¿½ï¿½Ä¼ï¿½
+#define	FLOOR_NON_STANDARD		221		//ï¿½ï¿½ 221 ï¿½Ä¼ï¿½ï¿½ï¿½Ê¼Îªï¿½Ç±ï¿½Â¥ï¿½ï¿½
+#define	MESSAGE_NON_STANDARD		247		//ï¿½ï¿½ 247 ï¿½Ä¼ï¿½ï¿½ï¿½Ê¼Îªï¿½Ç±ï¿½×´Ì¬ï¿½ï¿½Ï¢
 
 
-//²¦Âë¿ª¹ØµÄÅäÖÃÖµ
+//ï¿½ï¿½ï¿½ë¿ªï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½Öµ
 #define	MAX_LANGUAGE						3
-	#define CHINESE             		0x00		//ÖÐÎÄ
-	#define ENGLISH             		0x01		//Ó¢ÎÄ
-	#define CHINESE_AND_ENGLISH   	0x02		//ÖÐÓ¢ÎÄ
-	#define CHINESE_AND_YUEYU    		0x03		//ÖÐÓ¢ÔÁ
+	#define CHINESE             		0x00		//ï¿½ï¿½ï¿½ï¿½
+	#define ENGLISH             		0x01		//Ó¢ï¿½ï¿½
+	#define CHINESE_AND_ENGLISH   	0x02		//ï¿½ï¿½Ó¢ï¿½ï¿½
+	#define CHINESE_AND_YUEYU    		0x03		//ï¿½ï¿½Ó¢ï¿½ï¿½
 #define	MAX_PLAY_MODE					4
-	#define PLAY_NO_BACKMUSIC 		0x00		//²»²¥·Å±³¾°ÒôÀÖ
-	#define PLAY_ALL            		0x01		//²¥·ÅËùÓÐ
-//	#define PLAY_NO_ARROW_MOVING		0x01		//²»²¥·ÅÔËÐÐÐÅºÅ
-	#define PLAY_BACKMUSIC_TIMER		0x02		//Ò»¶ÎÊ±¼äºóÈ¡Ïû
-	#define PLAY_DEMO             0x03		//ÔËÐÐDEMO
+	#define PLAY_NO_BACKMUSIC 		0x00		//ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	#define PLAY_ALL            		0x01		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//	#define PLAY_NO_ARROW_MOVING		0x01		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
+	#define PLAY_BACKMUSIC_TIMER		0x02		//Ò»ï¿½ï¿½Ê±ï¿½ï¿½ï¿½È¡ï¿½ï¿½
+	#define PLAY_DEMO             0x03		//ï¿½ï¿½ï¿½ï¿½DEMO
 
 #define	MAX_FLOOR		64
 #define	MAX_SPECIAL	40
